@@ -1,13 +1,17 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/tailwind.css";
+import Navbar from "./components/Navbar";
+import Profile from "./components/Profile";
 
 const App: React.FC = () => {
   return (
-    <div className="bg-gray-800 text-white p-4">
-      <h1 className="text-2xl font-bold">My React App with Tailwind CSS</h1>
-      <p className="mt-2">Welcome to my app!</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navbar />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

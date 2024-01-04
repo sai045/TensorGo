@@ -4,10 +4,10 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Profile = require("passport-google-oauth20").Profile;
 require("dotenv").config();
-console.log(process.env);
 const app = express();
-const authRoutes = require("./routes/authRoutes");
-const ensureAuthenticated = require("./middleware/authMiddleware");
+const cors = require("cors");
+
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(
   session({
@@ -41,7 +41,18 @@ passport.deserializeUser((obj: any, done: any) => {
   done(null, obj);
 });
 
-app.use("/auth", authRoutes);
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  (req: any, res: any) => {
+    res.redirect("http://localhost:3000/profile");
+  }
+);
 
 app.get("/logout", (req: any, res: any, next: any) => {
   if (req.isAuthenticated()) {
@@ -53,7 +64,7 @@ app.get("/logout", (req: any, res: any, next: any) => {
       res.redirect("/");
     });
 
-    return res.redirect("/");
+    return res.redirect("/auth/google");
   }
 
   next();
@@ -61,8 +72,14 @@ app.get("/logout", (req: any, res: any, next: any) => {
 
 app.get("/profile", ensureAuthenticated, (req: any, res: any) => {
   res.send(req.user);
-  console.log(req.user);
 });
+
+function ensureAuthenticated(req: any, res: any, next: any) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
