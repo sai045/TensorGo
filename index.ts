@@ -5,6 +5,13 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Profile = require("passport-google-oauth20").Profile;
 require("dotenv").config();
 const app = express();
+const Intercom = require("intercom-client");
+const client = new Intercom.Client({
+  tokenAuth: {
+    token: process.env.INTERCOM_TOKEN,
+  },
+});
+
 const cors = require("cors");
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
@@ -49,8 +56,14 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
-  (req: any, res: any) => {
-    res.redirect("http://localhost:3000/profile");
+  async (req: any, res: any) => {
+    console.log(req.user.id);
+    const user = await client.contacts.createUser({
+      externalId: req.user.id,
+      email: req.user._json.email,
+      name: req.user.displayName,
+    });
+    res.redirect("http://localhost:5000/profile");
   }
 );
 
