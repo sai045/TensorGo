@@ -15,10 +15,9 @@ const Profile = () => {
   const logout = () => {
     axios
       .get("http://localhost:5000/logout", { withCredentials: true })
-      .then((response) => {
-        window.location.href = "http://localhost:3000/";
-      })
+      .then((response) => {})
       .catch((err) => console.log(err));
+    window.location.href = "http://localhost:3000/";
   };
   useEffect(() => {
     handle();

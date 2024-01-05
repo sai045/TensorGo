@@ -7,6 +7,8 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Profile = require("passport-google-oauth20").Profile;
 require("dotenv").config();
 const app = express();
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 const Intercom = require("intercom-client");
 const client = new Intercom.Client({
   tokenAuth: {
@@ -68,6 +70,7 @@ app.get(
         },
       },
     });
+    console.log(existingUser);
     if (existingUser.total_count == 0) {
       const user = await client.contacts.createUser({
         email: req.user._json.email,
@@ -101,6 +104,33 @@ function ensureAuthenticated(req: any, res: any, next: any) {
   }
   res.redirect("/");
 }
+
+app.post("/complaint", async (req: any, res: any) => {
+  console.log(req.body);
+  const { userId, complaint } = req.body;
+  const response = await client.conversations
+    .create({
+      userId,
+      body: complaint,
+    })
+    .then((response: any) => console.log(response))
+    .catch((err: any) => console.log(err));
+});
+
+app.post("/getAllComplaintsById", async (req: any, res: any) => {
+  const response = await client.conversations.search({
+    data: {
+      query: {
+        field: "contact_ids",
+        operator: Operators.EQUALS,
+        value: req.body.userId,
+      },
+    },
+  });
+  console.log(response);
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
