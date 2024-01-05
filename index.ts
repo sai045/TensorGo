@@ -1,3 +1,5 @@
+import { Operators } from "intercom-client";
+
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -57,13 +59,22 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req: any, res: any) => {
-    console.log(req.user.id);
-    const user = await client.contacts.createUser({
-      externalId: req.user.id,
-      email: req.user._json.email,
-      name: req.user.displayName,
+    const existingUser = await client.contacts.search({
+      data: {
+        query: {
+          field: "email",
+          operator: Operators.EQUALS,
+          value: req.user._json.email,
+        },
+      },
     });
-    res.redirect("http://localhost:5000/profile");
+    if (existingUser.total_count == 0) {
+      const user = await client.contacts.createUser({
+        email: req.user._json.email,
+        name: req.user.displayName,
+      });
+    }
+    res.redirect("http://localhost:3000/profile");
   }
 );
 
@@ -72,15 +83,12 @@ app.get("/logout", (req: any, res: any, next: any) => {
     req.logout((err: any) => {
       if (err) {
         console.error(err);
-        return res.send(false);
+        return res.json({ error: err });
+      } else {
+        return res.json({ operation: true });
       }
-      res.send(true);
     });
-
-    return res.send(false);
   }
-
-  next();
 });
 
 app.get("/profile", ensureAuthenticated, (req: any, res: any) => {
