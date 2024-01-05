@@ -59,12 +59,12 @@ app.get("/logout", (req: any, res: any, next: any) => {
     req.logout((err: any) => {
       if (err) {
         console.error(err);
-        return res.redirect("/");
+        return res.send(false);
       }
-      res.redirect("/");
+      res.send(true);
     });
 
-    return res.redirect("/auth/google");
+    return res.send(false);
   }
 
   next();
