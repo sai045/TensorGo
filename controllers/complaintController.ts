@@ -8,27 +8,34 @@ const clientComp = new IntercomComp.Client({
 });
 
 const createComplaint = async (req: any, res: any) => {
-  const { userId, complaint } = req.body;
+  const { userId, comments, catagory } = req.body;
   const response = await clientComp.conversations
     .create({
       userId,
-      body: complaint,
+      body: JSON.stringify({ comments, catagory }),
     })
-    .then((response: any) => console.log(response))
+    .then((response: any) => {
+      console.log(response);
+      res.status(200).json({ message: "Complaint created" });
+    })
     .catch((err: any) => console.log(err));
 };
 
 const getAllComplaintsById = async (req: any, res: any) => {
-  const response = await clientComp.conversations.search({
-    data: {
-      query: {
-        field: "contact_ids",
-        operator: Operators.EQUALS,
-        value: req.body.userId,
+  const response = await clientComp.conversations
+    .search({
+      data: {
+        query: {
+          field: "contact_ids",
+          operator: Operators.EQUALS,
+          value: req.body.userId,
+        },
       },
-    },
-  });
-  console.log(response);
+    })
+    .then((response: any) => {
+      res.status(200).json({ complaints: response });
+    })
+    .catch((err: any) => res.status(404).json({ err }));
 };
 
 exports.createComplaint = createComplaint;
