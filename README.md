@@ -51,3 +51,5 @@ npm start
 ![Screenshot from 2024-01-06 18-48-13](https://github.com/sai045/TensorGo/assets/85741790/8d026a28-bb77-448f-9427-c1821e392dc8)
 ![Screenshot from 2024-01-06 18-50-18](https://github.com/sai045/TensorGo/assets/85741790/89949bfa-fdc2-4573-a27a-73ef9c70045c)
 ![Screenshot from 2024-01-06 18-51-05](https://github.com/sai045/TensorGo/assets/85741790/d55d536f-c8e8-45ad-905a-aadf0aafe814)
+![image](https://github.com/sai045/TensorGo/assets/85741790/929b7b45-19cf-4267-926f-44c56a5b53ca)
+
