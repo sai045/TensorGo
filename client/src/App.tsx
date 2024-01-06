@@ -1,15 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/tailwind.css";
-import Navbar from "./components/Navbar";
-import Profile from "./components/Profile";
+import Home from "./pages/Home";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navbar />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

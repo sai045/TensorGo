@@ -12,7 +12,8 @@ const createComplaint = async (req: any, res: any) => {
   const response = await clientComp.conversations
     .create({
       userId,
-      body: JSON.stringify({ comments, catagory }),
+      body: comments,
+      tag: catagory,
     })
     .then((response: any) => {
       console.log(response);
@@ -22,6 +23,7 @@ const createComplaint = async (req: any, res: any) => {
 };
 
 const getAllComplaintsById = async (req: any, res: any) => {
+  console.log(req.body);
   const response = await clientComp.conversations
     .search({
       data: {
@@ -38,5 +40,16 @@ const getAllComplaintsById = async (req: any, res: any) => {
     .catch((err: any) => res.status(404).json({ err }));
 };
 
+const getComplaint = async (req: any, res: any) => {
+  const { id } = req.body;
+  const response = await clientComp.conversations
+    .find({ id })
+    .then((response: any) => res.status(200).json({ response }))
+    .catch((err: any) => {
+      res.status(404).json(err);
+    });
+};
+
 exports.createComplaint = createComplaint;
 exports.getAllComplaintsById = getAllComplaintsById;
+exports.getComplaint = getComplaint;

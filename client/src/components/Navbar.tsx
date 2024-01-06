@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.png";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  email: string | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ email }: any) => {
   const handleLogin = () => {
     window.location.href = "http://localhost:5000/auth/google";
+  };
+
+  const handleLogout = () => {
+    axios
+      .get("http://localhost:5000/auth/logout", { withCredentials: true })
+      .then((response) => {})
+      .catch((err) => console.log(err));
+    window.location.href = "http://localhost:3000/";
   };
 
   return (
@@ -16,15 +30,21 @@ const Navbar: React.FC = () => {
           </h4>
         </div>
         <div className="absolute inset-y-0 right-0 h-16 py-4 px-12">
-          <button onClick={handleLogin}>
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              alt=""
-              className="rounded-full"
-              height="50px"
-              width="50px"
-            />
-          </button>
+          {email ? (
+            <button onClick={handleLogout}>
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                alt=""
+                className="rounded-full"
+                height="50px"
+                width="50px"
+              />
+            </button>
+          ) : (
+            <button onClick={handleLogin}>
+              <h3 className="text-2xl text-white px-4 py-3">Login</h3>
+            </button>
+          )}
         </div>
       </div>
     </>

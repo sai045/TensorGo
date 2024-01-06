@@ -12,7 +12,6 @@ passportAuth.use(
       callbackURL: "http://localhost:5000/auth/google/callback",
     },
     (accessToken: string, refreshToken: string, profile: any, done: any) => {
-      console.log("fw");
       return done(null, profile);
     }
   )
@@ -38,5 +37,7 @@ router.get(
 );
 
 router.get("/logout", authController.logout);
+
+router.post("/getUser", authController.getUser);
 
 module.exports = router;

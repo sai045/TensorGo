@@ -10,4 +10,6 @@ routerComp.post(
   complaintController.getAllComplaintsById
 );
 
+routerComp.post("/getComplaint", complaintController.getComplaint);
+
 module.exports = routerComp;

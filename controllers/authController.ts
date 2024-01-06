@@ -20,22 +20,24 @@ const searchUser = async (email: string) => {
   return existingUser;
 };
 
-const createUser = async (email: string, name: string) => {
+const createUser = async (email: string, name: string, photo: string) => {
   const user = await clientAuth.contacts.createUser({
     email,
     name,
+    custom_attributes: { photo },
   });
 };
 
 const callbackController = async (req: any, res: any) => {
-  console.log("1");
   const existingUser: any = await searchUser(req.user._json.email);
-  console.log(existingUser);
   if (existingUser.total_count == 0) {
-    await createUser(req.user._json.email, req.user.displayName);
+    await createUser(
+      req.user._json.email,
+      req.user.displayName,
+      req.user.photos[0].value
+    );
   }
-  console.log("ofje");
-  res.redirect("http://localhost:3000/profile");
+  res.redirect(`http://localhost:3000/?email=${req.user._json.email}`);
 };
 
 const logout = async (req: any, res: any) => {
@@ -51,5 +53,19 @@ const logout = async (req: any, res: any) => {
   }
 };
 
+const getUser = async (req: any, res: any) => {
+  const existingUser = await clientAuth.contacts.search({
+    data: {
+      query: {
+        field: "email",
+        operator: Operators.EQUALS,
+        value: req.body.email,
+      },
+    },
+  });
+  res.status(200).json({ existingUser });
+};
+
 exports.callbackController = callbackController;
 exports.logout = logout;
+exports.getUser = getUser;
