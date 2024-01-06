@@ -12,8 +12,7 @@ const createComplaint = async (req: any, res: any) => {
   const response = await clientComp.conversations
     .create({
       userId,
-      body: comments,
-      tag: catagory,
+      body: JSON.stringify({ comments, catagory }),
     })
     .then((response: any) => {
       console.log(response);

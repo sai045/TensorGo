@@ -4,6 +4,7 @@ import "./styles/tailwind.css";
 import Home from "./pages/Home";
 import "./App.css";
 import Complaint from "./components/Complaint";
+import NewComplaint from "./components/NewComplaint";
 
 const App: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:complaint" element={<Complaint />} />
+        <Route path="/addcomplaint" element={<NewComplaint />} />
       </Routes>
     </BrowserRouter>
   );

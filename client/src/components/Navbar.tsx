@@ -32,13 +32,6 @@ const Navbar: React.FC<NavbarProps> = ({ email }: any) => {
         <div className="absolute inset-y-0 right-0 h-16 py-4 px-12">
           {email ? (
             <button onClick={handleLogout}>
-              {/* <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                alt=""
-                className="rounded-full"
-                height="50px"
-                width="50px"
-              /> */}
               <h3 className="text-2xl text-white px-4 py-3">{email}</h3>
             </button>
           ) : (
