@@ -15,7 +15,6 @@ const createComplaint = async (req: any, res: any) => {
       body: JSON.stringify({ comments, catagory }),
     })
     .then((response: any) => {
-      console.log(response);
       res.status(200).json({ message: "Complaint created" });
     })
     .catch((err: any) => console.log(err));

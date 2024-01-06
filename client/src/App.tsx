@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:complaint" element={<Complaint />} />
-        <Route path="/addcomplaint" element={<NewComplaint />} />
+        <Route path="/addcomplaint/:id" element={<NewComplaint />} />
       </Routes>
     </BrowserRouter>
   );

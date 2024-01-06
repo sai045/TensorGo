@@ -18,7 +18,6 @@ const Home: React.FC = () => {
         });
         const responseUser = respone.data.existingUser.data[0];
         setUser(responseUser);
-        console.log(responseUser);
       };
       getData();
     }
@@ -26,7 +25,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Navbar email={user.name} />
+      <Navbar name={user.name} email={email} />
       {email ? (
         <>
           <Complaints id={user?.id} />

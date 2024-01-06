@@ -1,10 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const NewComplaint = () => {
-  const [userId, setUderId] = useState("");
+  const { id } = useParams();
+  const [userId, setUderId] = useState(id);
   const [catagory, setCategory] = useState("General Queries");
   const [comments, setComments] = useState("");
+  const [user, setUser] = useState({ name: "", email: "" });
   const submitHandler = async (e: any) => {
     e.preventDefault();
     axios
@@ -20,19 +24,40 @@ const NewComplaint = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const respone = await axios.post(
+        "http://localhost:5000/auth/getUserById",
+        {
+          id,
+        }
+      );
+      const responseUser = respone.data.existingUser;
+      setUser(responseUser);
+      console.log(responseUser);
+    };
+    if (id) {
+      getData();
+    }
+  }, [id]);
+  console.log(user);
   return (
     <>
+      <Navbar name={user.name} email={user.email} />
       <div className="employeeSide">
         <form className="detailsForm" onSubmit={submitHandler}>
           <h2 className="text-2xl">Create Complaint Form</h2>
+
           <input
             type="text"
-            placeholder="Employee ID"
+            placeholder="ID"
             value={userId}
             onChange={(e) => {
               setUderId(e.target.value);
             }}
           />
+
           <br />
           <select
             value={catagory}

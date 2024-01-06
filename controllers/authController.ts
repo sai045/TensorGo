@@ -66,6 +66,13 @@ const getUser = async (req: any, res: any) => {
   res.status(200).json({ existingUser });
 };
 
+const getUserById = async (req: any, res: any) => {
+  const { id } = req.body;
+  const existingUser = await clientAuth.contacts.find({ id });
+  res.status(200).json({ existingUser });
+};
+
 exports.callbackController = callbackController;
 exports.logout = logout;
 exports.getUser = getUser;
+exports.getUserById = getUserById;

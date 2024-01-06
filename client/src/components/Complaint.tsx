@@ -24,6 +24,7 @@ const Complaint = () => {
     catagory: "",
     comments: "",
     name: "",
+    email: "",
   });
   const getComplaint = async () => {
     axios
@@ -31,7 +32,7 @@ const Complaint = () => {
         id: complaint,
       })
       .then((response: any) => {
-        console.log(response.data.response.source.author.name);
+        console.log(response.data.response.source.author);
         const tempMessages: any[] = [];
         const { comments, catagory } = textparser(
           response.data.response.source.body
@@ -40,6 +41,7 @@ const Complaint = () => {
           name: response.data.response.source.author.name,
           comments,
           catagory,
+          email: response.data.response.source.author.email,
         });
         const m = response.data.response.conversation_parts.conversation_parts;
         m.shift();
@@ -61,7 +63,7 @@ const Complaint = () => {
   console.log(messages);
   return (
     <>
-      <Navbar email={firstMessage.name} />
+      <Navbar name={firstMessage.name} email={firstMessage.email} />
       <div className="messages rounded-2xl">
         <div className="header">
           <div>

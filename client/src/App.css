@@ -144,3 +144,15 @@
 .firstMessage {
   text-align: right;
 }
+
+.catagorySelector {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  border: 2px solid #5863a1;
+  width: 10%;
+  position: relative;
+  left: 80%;
+  top: 10%;
+  margin-top: 40px;
+}

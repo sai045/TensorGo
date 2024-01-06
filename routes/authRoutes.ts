@@ -40,4 +40,6 @@ router.get("/logout", authController.logout);
 
 router.post("/getUser", authController.getUser);
 
+router.post("/getUserById", authController.getUserById);
+
 module.exports = router;
