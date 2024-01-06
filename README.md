@@ -32,8 +32,6 @@ npm start
 
 ### Customer Service Request
 
-
-
 - Setup an app on intercom developer hub
 - Use contacts as users and conversations as complaints
 - We can use intercom-client package to interact with intercom
