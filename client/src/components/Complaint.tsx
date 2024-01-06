@@ -23,29 +23,10 @@ const Complaint = () => {
     },
     open: true,
   };
-  const htmlString = '<p>{"comments":"complaint","catagory":"H"}</p>';
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, "text/html");
-
-  // Extract JSON content from the <p> tag
-  const jsonContent = doc.body.firstChild?.textContent;
-
-  // Parse the JSON content
-  try {
-    if (jsonContent) {
-      const parsedData = JSON.parse(jsonContent);
-      console.log(parsedData);
-    }
-    // setJsonData(parsedData);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-  }
   useEffect(() => {});
-  return (
-    <div>
-      <ul></ul>
-    </div>
-  );
+  return <div>
+      
+  </div>;
 };
 
 export default Complaint;

@@ -6,7 +6,7 @@ import Login from "../components/Login";
 import Complaints from "../components/Complaints";
 
 const Home: React.FC = () => {
-  const [user, setUser] = useState({ id: "" });
+  const [user, setUser] = useState({ id: "", name: "" });
   const location = useLocation();
   const email = new URLSearchParams(location.search).get("email");
 
@@ -18,14 +18,15 @@ const Home: React.FC = () => {
         });
         const responseUser = respone.data.existingUser.data[0];
         setUser(responseUser);
+        console.log(responseUser);
       };
       getData();
     }
-  },[]);
+  }, []);
 
   return (
     <>
-      <Navbar email={email} />
+      <Navbar email={user.name} />
       {email ? (
         <>
           <Complaints id={user?.id} />
