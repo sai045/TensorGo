@@ -28,9 +28,13 @@ const Complaint = () => {
   });
   const getComplaint = async () => {
     axios
-      .post("http://localhost:5000/complaint/getComplaint", {
-        id: complaint,
-      })
+      .post(
+        "http://localhost:5000/complaint/getComplaint",
+        {
+          id: complaint,
+        },
+        { withCredentials: true }
+      )
       .then((response: any) => {
         console.log(response.data.response.source.author);
         const tempMessages: any[] = [];

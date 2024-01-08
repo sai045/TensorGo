@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "./logo.png";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/authContext";
 
 interface NavbarProps {
   name: string;
@@ -9,6 +10,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ email, name }: any) => {
+  const { isAuthenticated, login } = useAuth();
   const handleLogin = () => {
     window.location.href = "http://localhost:5000/auth/google";
   };
@@ -16,9 +18,10 @@ const Navbar: React.FC<NavbarProps> = ({ email, name }: any) => {
   const handleLogout = () => {
     axios
       .get("http://localhost:5000/auth/logout", { withCredentials: true })
-      .then((response) => {})
+      .then((response) => {
+        window.location.href = "http://localhost:3000/";
+      })
       .catch((err) => console.log(err));
-    window.location.href = "http://localhost:3000/";
   };
 
   return (

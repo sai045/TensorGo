@@ -4,8 +4,7 @@ const passport = require("passport");
 require("dotenv").config();
 const app = express();
 const bodyParser = require("body-parser");
-const ensureAuthenticated =
-  require("./middleware/ensureAuthentication").isAuthenticated;
+
 const Intercom = require("intercom-client");
 
 const client = new Intercom.Client({
@@ -32,10 +31,6 @@ app.use(passport.session());
 
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/complaint", require("./routes/complaintRoutes"));
-
-app.get("/profile", ensureAuthenticated, (req: any, res: any) => {
-  res.send(req.user);
-});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

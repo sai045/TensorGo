@@ -13,9 +13,13 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (email) {
       const getData = async () => {
-        const respone = await axios.post("http://localhost:5000/auth/getUser", {
-          email,
-        });
+        const respone = await axios.post(
+          "http://localhost:5000/auth/getUser",
+          {
+            email,
+          },
+          { withCredentials: true }
+        );
         const responseUser = respone.data.existingUser.data[0];
         setUser(responseUser);
       };

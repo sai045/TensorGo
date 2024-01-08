@@ -14,7 +14,8 @@ const Complaints = ({ id }: any) => {
   const getComplaints = async () => {
     const response = await axios.post(
       "http://localhost:5000/complaint/getAllComplaintsById",
-      { userId: id }
+      { userId: id },
+      { withCredentials: true }
     );
     const tempComplaint: any[] = [];
     response.data.complaints.conversations.map((comp: any) => {

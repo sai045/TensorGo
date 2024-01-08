@@ -44,7 +44,6 @@ const logout = async (req: any, res: any) => {
   if (req.isAuthenticated()) {
     req.logout((err: any) => {
       if (err) {
-        console.error(err);
         return res.json({ error: err });
       } else {
         return res.json({ operation: true });

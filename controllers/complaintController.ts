@@ -21,7 +21,6 @@ const createComplaint = async (req: any, res: any) => {
 };
 
 const getAllComplaintsById = async (req: any, res: any) => {
-  console.log(req.body);
   const response = await clientComp.conversations
     .search({
       data: {

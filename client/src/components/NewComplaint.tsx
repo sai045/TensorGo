@@ -9,17 +9,20 @@ const NewComplaint = () => {
   const [catagory, setCategory] = useState("General Queries");
   const [comments, setComments] = useState("");
   const [user, setUser] = useState({ name: "", email: "" });
+
   const submitHandler = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/complaint/createComplaint", {
-        userId,
-        comments,
-        catagory,
-      })
-      .then((response: any) => {
-        console.log(response);
-      })
+      .post(
+        "http://localhost:5000/complaint/createComplaint",
+        {
+          userId,
+          comments,
+          catagory,
+        },
+        { withCredentials: true }
+      )
+      .then((response: any) => {})
       .catch((err: any) => {
         console.log(err);
       });
