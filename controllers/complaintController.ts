@@ -17,7 +17,9 @@ const createComplaint = async (req: any, res: any) => {
     .then((response: any) => {
       res.status(200).json({ message: "Complaint created" });
     })
-    .catch((err: any) => console.log(err));
+    .catch((err: any) => {
+      res.status(500).json({ error: err });
+    });
 };
 
 const getAllComplaintsById = async (req: any, res: any) => {

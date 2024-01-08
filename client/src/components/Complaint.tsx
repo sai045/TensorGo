@@ -36,7 +36,6 @@ const Complaint = () => {
         { withCredentials: true }
       )
       .then((response: any) => {
-        console.log(response.data.response.source.author);
         const tempMessages: any[] = [];
         const { comments, catagory } = textparser(
           response.data.response.source.body
@@ -60,11 +59,9 @@ const Complaint = () => {
         setMessages(tempMessages);
       });
   };
-  console.log(firstMessage);
   useEffect(() => {
     getComplaint();
   }, []);
-  console.log(messages);
   return (
     <>
       <Navbar name={firstMessage.name} email={firstMessage.email} />

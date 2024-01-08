@@ -38,13 +38,11 @@ const NewComplaint = () => {
       );
       const responseUser = respone.data.existingUser;
       setUser(responseUser);
-      console.log(responseUser);
     };
     if (id) {
       getData();
     }
   }, [id]);
-  console.log(user);
   return (
     <>
       <Navbar name={user.name} email={user.email} />

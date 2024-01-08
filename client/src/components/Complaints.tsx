@@ -19,7 +19,6 @@ const Complaints = ({ id }: any) => {
     );
     const tempComplaint: any[] = [];
     response.data.complaints.conversations.map((comp: any) => {
-      console.log(comp);
       const htmlString = comp.source.body;
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, "text/html");
@@ -56,7 +55,6 @@ const Complaints = ({ id }: any) => {
             setVisibleComplaints(complaints);
           } else {
             const tempComplaints = complaints.filter((complaint: any) => {
-              console.log(e.target.value);
               return complaint.catagory == e.target.value;
             });
             setVisibleComplaints(tempComplaints);
